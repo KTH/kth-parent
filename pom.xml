@@ -7,6 +7,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
+    <!-- Update version when updating Spring Boot version-->
     <version>2.2.5.RELEASE</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
@@ -14,15 +15,17 @@
   <groupId>se.kth</groupId>
   <artifactId>spring-boot-camel-parent</artifactId>
   <packaging>pom</packaging>
-  <version>0.0.1</version>
+  <!-- Update version when updating Spring Boot parent version-->
+  <version>2.2.5.RELEASE</version>
 
-  <name>Maven parent for a Spring Boot / Camel project</name>
+  <name>Maven parent for KTH Spring Boot / Camel projects</name>
 
   <properties>
     <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <camel.version>3.1.0</camel.version>
+    <spring-boot.version>${project.parent.version}</spring-boot.version>
   </properties>
 
   <dependencyManagement>
@@ -37,11 +40,15 @@
     </dependencies>
   </dependencyManagement>
 
-  
   <build>
-    <defaultGoal>clean package</defaultGoal>
+    <defaultGoal>clean install</defaultGoal>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
