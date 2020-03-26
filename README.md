@@ -1,9 +1,7 @@
-# kth-spring-boot-camel-parent
+# integral-springbootcamel-parent
 Parent POM for Spring Boot Camel projects
 
 Needs at least *java 11* to run correctly.
-
-Ignore warnings about *'version' contains an expression but should be a constant.*.
 
 To change Spring Boot version, you need to build a new kth-spring-boot-parent.
 
