@@ -13,7 +13,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>2.2.6-2</version>
+  <version>2.2.6-3</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -39,11 +39,9 @@
   </dependencyManagement>
 
   <build>
-    <defaultGoal>clean install</defaultGoal>
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <parameters>true</parameters>
@@ -54,31 +52,23 @@
         </plugin>
 
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>versions-maven-plugin</artifactId>
-          <configuration>
-            <generateBackupPoms>false</generateBackupPoms>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>pl.project13.maven</groupId>
-          <artifactId>git-commit-id-plugin</artifactId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>3.1.1</version>
           <executions>
             <execution>
-              <id>get-the-git-infos</id>
+              <phase>prepare-package</phase>
               <goals>
-                <goal>revision</goal>
+                <goal>check</goal>
               </goals>
             </execution>
           </executions>
           <configuration>
-            <offline>true</offline>
+            <configLocation>https://raw.githubusercontent.com/KTH/integral-settings/master/kth_checkstyle.xml</configLocation>
+            <failsOnError>false</failsOnError>
           </configuration>
         </plugin>
 
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
           <executions>
             <execution>
@@ -101,9 +91,63 @@
         </plugin>
 
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <configuration>
+            <generateBackupPoms>false</generateBackupPoms>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>pl.project13.maven</groupId>
+          <artifactId>git-commit-id-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>revision</goal>
+              </goals>
+              <phase>prepare-package</phase>
+            </execution>
+          </executions>
+          <configuration>
+            <!-- Generates Authentication errors if true (default value is true)-->
+            <offline>true</offline>
+            <verbose>false</verbose>
+          </configuration>
+        </plugin>
+
+        <plugin>
           <groupId>se.kth</groupId>
           <artifactId>dockerconf-maven-plugin</artifactId>
           <version>1.0.0</version>
+        </plugin>
+        
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>4.0.0</version>
+          <configuration>
+            <effort>min</effort>
+            <threshold>medium</threshold>
+            <xmlOutput>true</xmlOutput>
+            <omitVisitors>FindReturnRef</omitVisitors>
+            <failOnError>false</failOnError>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>check</goal>
+              </goals>
+              <phase>prepare-package</phase>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs</artifactId>
+              <version>4.0.2</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
