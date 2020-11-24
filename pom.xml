@@ -13,7 +13,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>3.5.0-1</version>
+  <version>3.5.0-2</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -199,6 +199,12 @@
             </formatFileSets>
           </configuration>
         </plugin>
+
+        <plugin>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-maven-plugin</artifactId>
+          <version>${camel.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -228,7 +234,7 @@
   </pluginRepositories>
 
   <!-- This must be copied to your project, otherwise integral-springbootcamel-parent will not be found.
-       The properties cannot be used, but must be hardcoded. -->
+       The properties cannot be used, they must be hardcoded. -->
   <repositories>
     <repository>
       <id>${maven.repository.id}</id>
