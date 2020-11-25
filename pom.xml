@@ -13,7 +13,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>3.5.0-4</version>
+  <version>3.5.0-5</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -49,22 +49,17 @@
       </dependency>
       <dependency>
         <groupId>se.kth.infosys.logback</groupId>
-        <artifactId>bunyan-logging</artifactId>
-        <version>2.5.0</version>
-      </dependency>
-      <dependency>
-        <groupId>se.kth.infosys.log4j</groupId>
-        <artifactId>bunyan-logging</artifactId>
-        <version>2.5.1</version>
+        <artifactId>bunyan-layout</artifactId>
+        <version>2.6.0</version>
       </dependency>
       <dependency>
         <groupId>se.kth.infosys.log4j2</groupId>
-        <artifactId>bunyan-logging</artifactId>
+        <artifactId>bunyan-layout</artifactId>
         <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>se.kth.infosys.log4j</groupId>
-        <artifactId>bunyan-logging</artifactId>
+        <artifactId>bunyan-layout</artifactId>
         <version>2.5.1</version>
       </dependency>
       <dependency>
