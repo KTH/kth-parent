@@ -13,7 +13,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>3.5.0-3</version>
+  <version>3.5.0-4</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -25,6 +25,8 @@
     <maven.version.range>3.6,</maven.version.range>
     <camel.version>3.5.0</camel.version>
     <cxf.version>3.4.0</cxf.version> <!-- Also update this when updating camel.version -->
+    <camel-ug.version>3.5.0</camel-ug.version>
+    <camel-ladok3.version>3.56.2</camel-ladok3.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
   </properties>
@@ -44,6 +46,46 @@
         <version>${cxf.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.infosys.logback</groupId>
+        <artifactId>bunyan-logging</artifactId>
+        <version>2.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.infosys.log4j</groupId>
+        <artifactId>bunyan-logging</artifactId>
+        <version>2.5.1</version>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.infosys.log4j2</groupId>
+        <artifactId>bunyan-logging</artifactId>
+        <version>2.5.1</version>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.infosys.log4j</groupId>
+        <artifactId>bunyan-logging</artifactId>
+        <version>2.5.1</version>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.infosys.smx</groupId>
+        <artifactId>camel-ug-component</artifactId>
+        <version>${camel-ug.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.infosys.smx</groupId>
+        <artifactId>camel-ug-test-tools</artifactId>
+        <version>${camel-ug.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.infosys.smx.ladok3</groupId>
+        <artifactId>camel-ladok3-component</artifactId>
+        <version>${camel-ladok3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.infosys.smx.ladok3</groupId>
+        <artifactId>camel-ladok3-test-utils</artifactId>
+        <version>${camel-ladok3.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
