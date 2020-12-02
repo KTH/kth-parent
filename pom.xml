@@ -13,7 +13,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>3.5.0-6</version>
+  <version>3.5.0-7</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -25,9 +25,10 @@
     <maven.version.range>3.6,</maven.version.range>
     <camel.version>3.5.0</camel.version>
     <azure.version>2.3.5</azure.version>
-    <cxf.version>3.4.0</cxf.version> <!-- Also update this when updating camel.version -->
+    <cxf.version>3.4.0</cxf.version> <!-- Update this when updating camel.version -->
     <camel-ug.version>3.5.0</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
+    <lombok.version>1.18.16</lombok.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
   </properties>
@@ -90,13 +91,47 @@
         <artifactId>camel-ladok3-test-utils</artifactId>
         <version>${camel-ladok3.version}</version>
       </dependency>
+      <dependency>
+        <groupId>se.kth.it.ladok</groupId>
+        <artifactId>ladok-api-model</artifactId>
+        <version>1.58.0</version>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.it.ladok</groupId>
+        <artifactId>ladok-event-model</artifactId>
+        <version>1.56.2</version>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.it.ladok</groupId>
+        <artifactId>ladok-legacy-model</artifactId>
+        <version>1.58.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
+    <!-- Spring Boot and Camel minimal dependencies -->
     <dependency>
       <groupId>org.apache.camel.springboot</groupId>
       <artifactId>camel-spring-boot-starter</artifactId>
+    </dependency>
+    <!-- Generate metadata to allow auto-completion of properties -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!-- Used to validate input for @PropertySource -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate-validator.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
