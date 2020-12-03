@@ -13,7 +13,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>3.5.0-8</version>
+  <version>3.5.0-9</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -206,7 +206,7 @@
         <plugin>
           <groupId>se.kth</groupId>
           <artifactId>dockerconf-maven-plugin</artifactId>
-          <version>1.0.0</version>
+          <version>1.1.1</version>
           <executions>
             <execution>
               <phase>process-sources</phase>
