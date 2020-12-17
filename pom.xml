@@ -13,7 +13,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>3.5.0-10</version>
+  <version>3.7.0-1</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -23,9 +23,10 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
     <maven.version.range>3.6,</maven.version.range>
-    <camel.version>3.5.0</camel.version>
+    <camel.version>3.7.0</camel.version>
     <azure.version>2.3.5</azure.version>
-    <cxf.version>3.4.0</cxf.version> <!-- Update this when updating camel.version -->
+    <cxf.version>3.4.1</cxf.version> <!-- Update this when updating camel.version -->
+    <spring-security.version>5.4.2</spring-security.version> <!-- Update this when updating camel.version -->
     <camel-ug.version>3.5.0</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
     <lombok.version>1.18.16</lombok.version>
