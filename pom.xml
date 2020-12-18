@@ -13,7 +13,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>3.7.0-1</version>
+  <version>3.7.0-2</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -25,13 +25,31 @@
     <maven.version.range>3.6,</maven.version.range>
     <camel.version>3.7.0</camel.version>
     <azure.version>2.3.5</azure.version>
-    <cxf.version>3.4.1</cxf.version> <!-- Update this when updating camel.version -->
-    <spring-security.version>5.4.2</spring-security.version> <!-- Update this when updating camel.version -->
     <camel-ug.version>3.5.0</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
     <lombok.version>1.18.16</lombok.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
+
+    <!--
+      Some CXF dependencies are not defined in Camel, so we use this to import the CXF BOM.
+      Must match the version in Camel. Update this when updating camel.version.
+    -->
+    <cxf.version>3.4.1</cxf.version>
+
+    <!--
+      In Camel 3.7 there is a mismatch between the dependencies. Remove this when the versions are harmonized.
+      Check project integral-ug-rest-service for reference pom. If it compiles without this value set, this
+      can be removed.
+      Must match the version in Camel. Update this when updating camel.version.
+    -->
+    <spring-security.version>5.4.2</spring-security.version>
+
+    <!--
+      The UG Camel component uses a later version than the one defined in Spring Boot (3.x).
+      When we start using a version of Spring boot with OkHttp 4.x predefined this can be removed.
+    -->
+    <okhttp3.version>4.2.2</okhttp3.version>
   </properties>
 
   <dependencyManagement>
@@ -111,22 +129,21 @@
   </dependencyManagement>
 
   <dependencies>
-    <!-- Spring Boot and Camel minimal dependencies -->
-    <dependency>
-      <groupId>org.apache.camel.springboot</groupId>
-      <artifactId>camel-spring-boot-starter</artifactId>
-    </dependency>
-    <!-- Generate metadata to allow auto-completion of properties -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-    </dependency>
+
     <!-- Used to validate input for @PropertySource -->
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
     </dependency>
+
+    <!-- Annotation processor for generating Spring Boot configuration metadata -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- Annotation processor for lombok (https://projectlombok.org/) -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
