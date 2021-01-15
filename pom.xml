@@ -4,16 +4,9 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.3.RELEASE</version> <!-- This version should match the version supported by camel.version -->
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-
   <groupId>se.kth</groupId>
   <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>3.7.0-2</version>
+  <version>3.7.0-3</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -24,8 +17,9 @@
     <java.version>11</java.version>
     <maven.version.range>3.6,</maven.version.range>
     <camel.version>3.7.0</camel.version>
+    <spring-boot.version>2.4.2</spring-boot.version>
     <azure.version>2.3.5</azure.version>
-    <camel-ug.version>3.5.0</camel-ug.version>
+    <camel-ug.version>3.7.0-1</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
     <lombok.version>1.18.16</lombok.version>
     <maven.repository.id>integration</maven.repository.id>
@@ -54,6 +48,13 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.apache.camel.springboot</groupId>
         <artifactId>camel-spring-boot-bom</artifactId>
@@ -148,7 +149,7 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
-      <scope>provided</scope>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 
@@ -156,9 +157,13 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
           <configuration>
             <parameters>true</parameters>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
             <compilerArgs>
               <arg>-Xlint:all</arg>
             </compilerArgs>
@@ -166,24 +171,8 @@
         </plugin>
 
         <plugin>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>3.1.1</version>
-          <executions>
-            <execution>
-              <phase>prepare-package</phase>
-              <goals>
-                <goal>check</goal>
-              </goals>
-            </execution>
-          </executions>
-          <configuration>
-            <configLocation>https://raw.githubusercontent.com/KTH/integral-settings/master/kth_checkstyle.xml</configLocation>
-            <failsOnError>false</failsOnError>
-          </configuration>
-        </plugin>
-
-        <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
+          <version>3.0.0-M3</version>
           <executions>
             <execution>
               <goals>
@@ -206,6 +195,7 @@
         <plugin>
           <groupId>pl.project13.maven</groupId>
           <artifactId>git-commit-id-plugin</artifactId>
+          <version>4.0.3</version>
           <executions>
             <execution>
               <phase>prepare-package</phase>
@@ -215,24 +205,53 @@
             </execution>
           </executions>
           <configuration>
-            <!-- Generates Authentication errors if false (default value is false)-->
+            <!-- Generates authentication errors if online (default value is offline=false)-->
             <offline>true</offline>
             <verbose>false</verbose>
           </configuration>
         </plugin>
 
         <plugin>
-          <groupId>se.kth</groupId>
-          <artifactId>dockerconf-maven-plugin</artifactId>
-          <version>1.1.2</version>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.8.1</version>
+          <configuration>
+            <generateBackupPoms>false</generateBackupPoms>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.2.0</version>
           <executions>
             <execution>
-              <phase>process-sources</phase>
+              <id>attach-sources</id>
               <goals>
-                <goal>validate</goal>
+                <goal>jar</goal>
               </goals>
             </execution>
           </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.1.1</version>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <configuration>
+                <quiet>true</quiet>
+              </configuration>
+            </execution>
+          </executions>
+          <configuration>
+            <quiet>true</quiet>
+          </configuration>
         </plugin>
 
         <plugin>
@@ -252,35 +271,41 @@
             <threshold>medium</threshold>
             <xmlOutput>true</xmlOutput>
             <omitVisitors>FindReturnRef</omitVisitors>
-            <failOnError>false</failOnError>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>versions-maven-plugin</artifactId>
-          <configuration>
-            <generateBackupPoms>false</generateBackupPoms>
+            <failOnError>true</failOnError>
           </configuration>
         </plugin>
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.1.2</version>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>3.1.1</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.puppycrawl.tools</groupId>
+              <artifactId>checkstyle</artifactId>
+              <version>8.39</version>
+            </dependency>
+          </dependencies>
           <executions>
             <execution>
-              <id>download-sources</id>
+              <id>validate</id>
+              <phase>process-test-classes</phase>
               <goals>
-                <goal>sources</goal>
+                <goal>check</goal>
               </goals>
-              <configuration>
-                <silent>true</silent>
-              </configuration>
             </execution>
           </executions>
+          <configuration>
+            <configLocation>https://raw.githubusercontent.com/KTH/integral-settings/master/kth_checkstyle.xml</configLocation>
+            <encoding>UTF-8</encoding>
+            <violationSeverity>warning</violationSeverity>
+            <failOnViolation>true</failOnViolation>UgProducer
+            <includeTestSourceDirectory>true</includeTestSourceDirectory>
+            <linkXRef>false</linkXRef>
+          </configuration>
         </plugin>
 
+        <!-- Check correct formatting of pom.xml, should be 2 space indentation -->
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>xml-maven-plugin</artifactId>
@@ -293,16 +318,32 @@
             </execution>
           </executions>
           <configuration>
-            <indentSize>2</indentSize>
+            <useDefaultFormatFileSet>false</useDefaultFormatFileSet>
             <formatFileSets>
               <formatFileSet>
                 <directory>${basedir}</directory>
+                <indentSize>2</indentSize>
                 <includes>
-                  <include>/pom.xml</include>
+                  <include>pom.xml</include>
                 </includes>
               </formatFileSet>
             </formatFileSets>
           </configuration>
+        </plugin>
+
+        <!-- Checks that docker.conf contains the same version as the pom.xml -->
+        <plugin>
+          <groupId>se.kth</groupId>
+          <artifactId>dockerconf-maven-plugin</artifactId>
+          <version>1.1.2</version>
+          <executions>
+            <execution>
+              <phase>process-sources</phase>
+              <goals>
+                <goal>validate</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
 
         <plugin>
@@ -314,11 +355,29 @@
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring-boot.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
           <configuration>
+            <!--
+              The Spring Boot repackaging goal always includes every dependency,
+              even those marked as Optional or with Scope=provided. The
+              annotation processors are only used during compilation,
+              never at runtime, so we don't need then in the repackaged jar.
+            -->
             <excludes>
               <exclude>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-configuration-processor</artifactId>
+              </exclude>
+              <exclude>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
               </exclude>
             </excludes>
           </configuration>
