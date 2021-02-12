@@ -6,7 +6,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>3.7.0-3</version>
+  <version>3.7.0-4</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -24,6 +24,8 @@
     <lombok.version>1.18.16</lombok.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
+    <sonar.host.url>https://integral-sqube.azurewebsites.net</sonar.host.url>
+    <checkstyle.config.location>https://raw.githubusercontent.com/KTH/kth-java-settings/main/kth_checkstyle.xml</checkstyle.config.location>
 
     <!--
       Some CXF dependencies are not defined in Camel, so we use this to import the CXF BOM.
@@ -40,7 +42,7 @@
     <spring-security.version>5.4.2</spring-security.version>
 
     <!--
-      The UG Camel component uses a later version than the one defined in Spring Boot (3.x).
+      The UG Camel component needs version 4.x of Okhttp3, Spring Boot defines 3.x as default.
       When we start using a version of Spring boot with OkHttp 4.x predefined this can be removed.
     -->
     <okhttp3.version>4.2.2</okhttp3.version>
@@ -154,6 +156,7 @@
   </dependencies>
 
   <build>
+    <defaultGoal>clean verify</defaultGoal>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -168,6 +171,16 @@
               <arg>-Xlint:all</arg>
             </compilerArgs>
           </configuration>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.0.0-M5</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>3.0.0-M1</version>
         </plugin>
 
         <plugin>
@@ -276,7 +289,6 @@
         </plugin>
 
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>3.1.1</version>
           <dependencies>
@@ -296,10 +308,9 @@
             </execution>
           </executions>
           <configuration>
-            <configLocation>https://raw.githubusercontent.com/KTH/integral-settings/master/kth_checkstyle.xml</configLocation>
             <encoding>UTF-8</encoding>
             <violationSeverity>warning</violationSeverity>
-            <failOnViolation>true</failOnViolation>UgProducer
+            <failOnViolation>true</failOnViolation>
             <includeTestSourceDirectory>true</includeTestSourceDirectory>
             <linkXRef>false</linkXRef>
           </configuration>
@@ -384,17 +395,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
   </build>
 
   <distributionManagement>
