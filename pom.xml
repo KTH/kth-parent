@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>se.kth</groupId>
-  <artifactId>integral-springbootcamel-parent</artifactId>
-  <version>3.7.0-4</version>
+  <artifactId>kth-parent</artifactId>
+  <version>3.7.0-5</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
