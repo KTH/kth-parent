@@ -6,22 +6,31 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.7.0-5</version>
+  <version>3.7.2-0</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
+
+  <profiles>
+    <profile>
+      <id>ci</id>
+      <properties>
+        <spotbugs.threshold>low</spotbugs.threshold>
+      </properties>
+    </profile>
+  </profiles>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
     <maven.version.range>3.6,</maven.version.range>
-    <camel.version>3.7.0</camel.version>
+    <camel.version>3.7.2</camel.version>
     <spring-boot.version>2.4.2</spring-boot.version>
-    <azure.version>2.3.5</azure.version>
+    <azure.version>3.1.0</azure.version>
     <camel-ug.version>3.7.0-1</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
-    <lombok.version>1.18.16</lombok.version>
+    <lombok.version>1.18.18</lombok.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
     <sonar.host.url>https://integral-sqube.azurewebsites.net</sonar.host.url>
@@ -45,11 +54,18 @@
       The UG Camel component needs version 4.x of Okhttp3, Spring Boot defines 3.x as default.
       When we start using a version of Spring boot with OkHttp 4.x predefined this can be removed.
     -->
-    <okhttp3.version>4.2.2</okhttp3.version>
+    <okhttp3.version>4.9.1</okhttp3.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp-bom</artifactId>
+        <version>${okhttp3.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
@@ -65,7 +81,7 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.microsoft.azure</groupId>
+        <groupId>com.azure.spring</groupId>
         <artifactId>azure-spring-boot-bom</artifactId>
         <version>${azure.version}</version>
         <type>pom</type>
@@ -78,6 +94,7 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
       <dependency>
         <groupId>se.kth.infosys.logback</groupId>
         <artifactId>bunyan-layout</artifactId>
@@ -201,6 +218,26 @@
                   </requireJavaVersion>
                 </rules>
               </configuration>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.6</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
             </execution>
           </executions>
         </plugin>
