@@ -6,7 +6,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.7.2-0</version>
+  <version>3.7.2-1</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -15,7 +15,8 @@
     <profile>
       <id>ci</id>
       <properties>
-        <spotbugs.threshold>low</spotbugs.threshold>
+        <!-- <spotbugs.threshold>low</spotbugs.threshold> -->
+        <spotbugs.effort>max</spotbugs.effort>
       </properties>
     </profile>
   </profiles>
@@ -24,7 +25,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
-    <maven.version.range>3.6,</maven.version.range>
+    <maven.version.range>3.6.2,</maven.version.range> <!-- Minimum of maven 3.6.2 required for flatten plugin to work correctly -->
     <camel.version>3.7.2</camel.version>
     <spring-boot.version>2.4.2</spring-boot.version>
     <azure.version>3.1.0</azure.version>
@@ -190,6 +191,7 @@
           </configuration>
         </plugin>
 
+        <!-- Junit test runner -->
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.0.0-M5</version>
@@ -200,6 +202,7 @@
           <version>3.0.0-M1</version>
         </plugin>
 
+        <!-- Enforces that certain build parameters are used, such as java and maven version -->
         <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
           <version>3.0.0-M3</version>
@@ -222,6 +225,7 @@
           </executions>
         </plugin>
 
+        <!-- Code coverage analysis -->
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
@@ -242,6 +246,7 @@
           </executions>
         </plugin>
 
+        <!-- Add Git-information to build, such as current git hash -->
         <plugin>
           <groupId>pl.project13.maven</groupId>
           <artifactId>git-commit-id-plugin</artifactId>
@@ -261,6 +266,7 @@
           </configuration>
         </plugin>
 
+        <!-- Handle versions -->
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
@@ -304,6 +310,7 @@
           </configuration>
         </plugin>
 
+        <!-- Static code analysis -->
         <plugin>
           <groupId>com.github.spotbugs</groupId>
           <artifactId>spotbugs-maven-plugin</artifactId>
@@ -325,6 +332,7 @@
           </configuration>
         </plugin>
 
+        <!-- Code style guide checker -->
         <plugin>
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>3.1.1</version>
@@ -416,7 +424,7 @@
               The Spring Boot repackaging goal always includes every dependency,
               even those marked as Optional or with Scope=provided. The
               annotation processors are only used during compilation,
-              never at runtime, so we don't need then in the repackaged jar.
+              never at runtime, so we don't need them in the repackaged jar.
             -->
             <excludes>
               <exclude>
@@ -429,6 +437,37 @@
               </exclude>
             </excludes>
           </configuration>
+        </plugin>
+
+        <!-- Use this plugin in your project if you use the ${revision} property -->
+        <!-- to define version number. https://maven.apache.org/maven-ci-friendly.html -->
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>flatten-maven-plugin</artifactId>
+          <version>1.2.2</version>
+          <configuration>
+            <updatePomFile>true</updatePomFile>
+            <flattenMode>resolveCiFriendliesOnly</flattenMode>
+            <!-- Minimum of maven 3.6.2 required for this to work correctly -->
+            <outputDirectory>${project.build.directory}</outputDirectory>
+            <flattenedPomFilename>${project.artifactId}-${project.version}.pom</flattenedPomFilename>
+          </configuration>
+          <executions>
+            <execution>
+              <id>flatten</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>flatten</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>flatten.clean</id>
+              <phase>clean</phase>
+              <goals>
+                <goal>clean</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
