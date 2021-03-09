@@ -6,7 +6,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.7.2-2</version>
+  <version>3.7.2-3</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -32,6 +32,7 @@
     <camel-ug.version>3.7.2-1</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
     <lombok.version>1.18.18</lombok.version>
+    <checkstyle.version>3.81</checkstyle.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
     <sonar.host.url>https://integral-sqube.azurewebsites.net</sonar.host.url>
@@ -340,7 +341,7 @@
             <dependency>
               <groupId>com.puppycrawl.tools</groupId>
               <artifactId>checkstyle</artifactId>
-              <version>8.39</version>
+              <version>${checkstyle.version}</version>
             </dependency>
           </dependencies>
           <executions>
