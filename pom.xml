@@ -6,7 +6,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.7.2-4</version>
+  <version>3.7.2-5</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -33,6 +33,7 @@
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
     <lombok.version>1.18.18</lombok.version>
     <checkstyle.version>8.41</checkstyle.version>
+    <spotbugs.version>4.2.2</spotbugs.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
     <sonar.host.url>https://integral-sqube.azurewebsites.net</sonar.host.url>
@@ -170,6 +171,14 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- Contains the @SuppressFBWarnings annotation för SpotBugs -->
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-annotations</artifactId>
+      <version>${spotbugs.version}</version>
       <optional>true</optional>
     </dependency>
   </dependencies>
@@ -315,7 +324,14 @@
         <plugin>
           <groupId>com.github.spotbugs</groupId>
           <artifactId>spotbugs-maven-plugin</artifactId>
-          <version>4.1.4</version>
+          <version>4.2.0</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs</artifactId>
+              <version>${spotbugs.version}</version>
+            </dependency>
+          </dependencies>
           <executions>
             <execution>
               <phase>prepare-package</phase>
@@ -435,6 +451,10 @@
               <exclude>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
+              </exclude>
+              <exclude>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-annotations</artifactId>
               </exclude>
             </excludes>
           </configuration>
