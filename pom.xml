@@ -6,7 +6,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.7.2-5</version>
+  <version>3.7.3-0</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH Spring Boot/Camel projects</name>
@@ -26,13 +26,13 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
     <maven.version.range>3.6.2,</maven.version.range> <!-- Minimum of maven 3.6.2 required for flatten plugin to work correctly -->
-    <camel.version>3.7.2</camel.version>
-    <spring-boot.version>2.4.2</spring-boot.version>
+    <camel.version>3.7.3</camel.version>
+    <spring-boot.version>2.4.4</spring-boot.version>
     <azure.version>3.1.0</azure.version>
     <camel-ug.version>3.7.2-1</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
-    <lombok.version>1.18.18</lombok.version>
-    <checkstyle.version>8.41</checkstyle.version>
+    <lombok.version>1.18.20</lombok.version>
+    <checkstyle.version>8.41.1</checkstyle.version>
     <spotbugs.version>4.2.2</spotbugs.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
@@ -43,7 +43,7 @@
       Some CXF dependencies are not defined in Camel, so we use this to import the CXF BOM.
       Must match the version in Camel. Update this when updating camel.version.
     -->
-    <cxf.version>3.4.1</cxf.version>
+    <cxf.version>3.4.2</cxf.version>
 
     <!--
       In Camel 3.7 there is a mismatch between the dependencies. Remove this when the versions are harmonized.
@@ -51,7 +51,7 @@
       can be removed.
       Must match the version in Camel. Update this when updating camel.version.
     -->
-    <spring-security.version>5.4.2</spring-security.version>
+    <spring-security.version>5.4.5</spring-security.version>
 
     <!--
       The UG Camel component needs version 4.x of Okhttp3, Spring Boot defines 3.x as default.
@@ -136,17 +136,17 @@
       <dependency>
         <groupId>se.kth.it.ladok</groupId>
         <artifactId>ladok-api-model</artifactId>
-        <version>1.58.0</version>
+        <version>1.65.0</version>
       </dependency>
       <dependency>
         <groupId>se.kth.it.ladok</groupId>
         <artifactId>ladok-event-model</artifactId>
-        <version>1.56.2</version>
+        <version>1.65.0</version>
       </dependency>
       <dependency>
         <groupId>se.kth.it.ladok</groupId>
         <artifactId>ladok-legacy-model</artifactId>
-        <version>1.58.0</version>
+        <version>1.65.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -375,32 +375,6 @@
             <failOnViolation>true</failOnViolation>
             <includeTestSourceDirectory>true</includeTestSourceDirectory>
             <linkXRef>false</linkXRef>
-          </configuration>
-        </plugin>
-
-        <!-- Check correct formatting of pom.xml, should be 2 space indentation -->
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>xml-maven-plugin</artifactId>
-          <version>1.0.2</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>check-format</goal>
-              </goals>
-            </execution>
-          </executions>
-          <configuration>
-            <useDefaultFormatFileSet>false</useDefaultFormatFileSet>
-            <formatFileSets>
-              <formatFileSet>
-                <directory>${basedir}</directory>
-                <indentSize>2</indentSize>
-                <includes>
-                  <include>pom.xml</include>
-                </includes>
-              </formatFileSet>
-            </formatFileSets>
           </configuration>
         </plugin>
 
