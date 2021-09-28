@@ -1,0 +1,27 @@
+trigger:
+  - main
+
+pr: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: MavenAuthenticate@0
+    displayName: Authenticate to Azure Artifacts
+    inputs:
+      artifactsFeeds: 'integration'
+
+  - task: Maven@3
+    displayName: Run Maven clean deploy
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      options: '--no-transfer-progress'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: 'clean deploy'
+
