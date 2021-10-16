@@ -6,10 +6,10 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.7.3-0</version>
+  <version>3.11.3-0</version>
   <packaging>pom</packaging>
 
-  <name>Maven parent for KTH Spring Boot/Camel projects</name>
+  <name>Maven parent for KTH projects</name>
 
   <profiles>
     <profile>
@@ -25,33 +25,26 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
-    <maven.version.range>3.6.2,</maven.version.range> <!-- Minimum of maven 3.6.2 required for flatten plugin to work correctly -->
-    <camel.version>3.7.3</camel.version>
-    <spring-boot.version>2.4.4</spring-boot.version>
-    <azure.version>3.1.0</azure.version>
-    <camel-ug.version>3.7.2-1</camel-ug.version>
+    <maven.version>(3.6.2,)</maven.version> <!-- Minimum of maven 3.6.2 required for flatten plugin to work correctly -->
+    <camel.version>3.11.3</camel.version>
+    <spring-boot.version>2.5.5</spring-boot.version> <!-- Must be compatible with Camel version -->
+    <azure.version>3.9.0</azure.version>
+    <camel-ug.version>3.7.3-12</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
-    <lombok.version>1.18.20</lombok.version>
-    <checkstyle.version>8.41.1</checkstyle.version>
-    <spotbugs.version>4.2.2</spotbugs.version>
+    <lombok.version>1.18.22</lombok.version>
+    <checkstyle.version>9.0.1</checkstyle.version>
+    <spotbugs.version>4.4.2</spotbugs.version>
+    <ladok-model.version>1.76.1</ladok-model.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
     <sonar.host.url>https://integral-sqube.azurewebsites.net</sonar.host.url>
-    <checkstyle.config.location>https://raw.githubusercontent.com/KTH/kth-java-settings/main/kth_checkstyle.xml</checkstyle.config.location>
+    <checkstyle.config.location>https://raw.githubusercontent.com/KTH/kth-java-settings/main/kth_checkstyle9.xml</checkstyle.config.location>
 
     <!--
-      Some CXF dependencies are not defined in Camel, so we use this to import the CXF BOM.
+      In camel-ladok3-test-utils there is a mismatch between the cxf-dependencies defined in camel, so we use this to import the correct CXF BOM.
       Must match the version in Camel. Update this when updating camel.version.
     -->
-    <cxf.version>3.4.2</cxf.version>
-
-    <!--
-      In Camel 3.7 there is a mismatch between the dependencies. Remove this when the versions are harmonized.
-      Check project integral-ug-rest-service for reference pom. If it compiles without this value set, this
-      can be removed.
-      Must match the version in Camel. Update this when updating camel.version.
-    -->
-    <spring-security.version>5.4.5</spring-security.version>
+    <cxf.version>3.4.4</cxf.version>
 
     <!--
       The UG Camel component needs version 4.x of Okhttp3, Spring Boot defines 3.x as default.
@@ -70,9 +63,9 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring-boot.version}</version>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-bom</artifactId>
+        <version>${camel.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -84,9 +77,9 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.azure.spring</groupId>
-        <artifactId>azure-spring-boot-bom</artifactId>
-        <version>${azure.version}</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -97,7 +90,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-
+      <dependency>
+        <groupId>com.azure.spring</groupId>
+        <artifactId>azure-spring-boot-bom</artifactId>
+        <version>${azure.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>se.kth.infosys.logback</groupId>
         <artifactId>bunyan-layout</artifactId>
@@ -136,17 +135,17 @@
       <dependency>
         <groupId>se.kth.it.ladok</groupId>
         <artifactId>ladok-api-model</artifactId>
-        <version>1.65.0</version>
+        <version>${ladok-model.version}</version>
       </dependency>
       <dependency>
         <groupId>se.kth.it.ladok</groupId>
         <artifactId>ladok-event-model</artifactId>
-        <version>1.65.0</version>
+        <version>${ladok-model.version}</version>
       </dependency>
       <dependency>
         <groupId>se.kth.it.ladok</groupId>
         <artifactId>ladok-legacy-model</artifactId>
-        <version>1.65.0</version>
+        <version>${ladok-model.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -159,7 +158,7 @@
       <artifactId>hibernate-validator</artifactId>
     </dependency>
 
-    <!-- Annotation processor for generating Spring Boot configuration metadata -->
+    <!-- Annotation processor for generating Spring Boot configuration metadata (https://www.baeldung.com/spring-boot-configuration-metadata) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>
@@ -174,7 +173,7 @@
       <optional>true</optional>
     </dependency>
 
-    <!-- Contains the @SuppressFBWarnings annotation för SpotBugs -->
+    <!-- Contains the @SuppressFBWarnings annotation för SpotBugs (https://spotbugs.github.io/) -->
     <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs-annotations</artifactId>
@@ -215,7 +214,7 @@
         <!-- Enforces that certain build parameters are used, such as java and maven version -->
         <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
-          <version>3.0.0-M3</version>
+          <version>3.0.0</version>
           <executions>
             <execution>
               <goals>
@@ -224,10 +223,10 @@
               <configuration>
                 <rules>
                   <requireMavenVersion>
-                    <version>(${maven.version.range})</version>
+                    <version>${maven.version}</version>
                   </requireMavenVersion>
                   <requireJavaVersion>
-                    <version>(${java.version},)</version>
+                    <version>${java.version}</version>
                   </requireJavaVersion>
                 </rules>
               </configuration>
@@ -239,7 +238,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.6</version>
+          <version>0.8.7</version>
           <executions>
             <execution>
               <goals>
@@ -258,21 +257,24 @@
 
         <!-- Add Git-information to build, such as current git hash -->
         <plugin>
-          <groupId>pl.project13.maven</groupId>
-          <artifactId>git-commit-id-plugin</artifactId>
-          <version>4.0.3</version>
+          <groupId>io.github.git-commit-id</groupId>
+          <artifactId>git-commit-id-maven-plugin</artifactId>
+          <version>5.0.0</version>
           <executions>
             <execution>
-              <phase>prepare-package</phase>
+              <id>get-the-git-infos</id>
               <goals>
                 <goal>revision</goal>
               </goals>
+              <phase>initialize</phase>
             </execution>
           </executions>
           <configuration>
-            <!-- Generates authentication errors if online (default value is offline=false)-->
-            <offline>true</offline>
-            <verbose>false</verbose>
+            <generateGitPropertiesFile>true</generateGitPropertiesFile>
+            <excludeProperties>
+              <excludeProperty>git.commit.user.email</excludeProperty>
+              <excludeProperty>git.build.user.email</excludeProperty>
+            </excludeProperties>
           </configuration>
         </plugin>
 
@@ -286,10 +288,11 @@
           </configuration>
         </plugin>
 
+        <!-- Generate a sources jar which can be downloaded -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-          <version>3.2.0</version>
+          <version>3.2.1</version>
           <executions>
             <execution>
               <id>attach-sources</id>
@@ -300,10 +303,11 @@
           </executions>
         </plugin>
 
+        <!-- Generate a javadoc jar which can be downloaded -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.1.1</version>
+          <version>3.3.1</version>
           <executions>
             <execution>
               <id>attach-javadocs</id>
@@ -324,7 +328,7 @@
         <plugin>
           <groupId>com.github.spotbugs</groupId>
           <artifactId>spotbugs-maven-plugin</artifactId>
-          <version>4.2.0</version>
+          <version>4.4.1</version>
           <dependencies>
             <dependency>
               <groupId>com.github.spotbugs</groupId>
@@ -352,7 +356,7 @@
         <!-- Code style guide checker -->
         <plugin>
           <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>3.1.1</version>
+          <version>3.1.2</version>
           <dependencies>
             <dependency>
               <groupId>com.puppycrawl.tools</groupId>
@@ -413,7 +417,7 @@
           <configuration>
             <!--
               The Spring Boot repackaging goal always includes every dependency,
-              even those marked as Optional or with Scope=provided. The
+              even those marked as optional or with Scope=provided. The
               annotation processors are only used during compilation,
               never at runtime, so we don't need them in the repackaged jar.
             -->
@@ -439,7 +443,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>flatten-maven-plugin</artifactId>
-          <version>1.2.2</version>
+          <version>1.2.7</version>
           <configuration>
             <updatePomFile>true</updatePomFile>
             <flattenMode>resolveCiFriendliesOnly</flattenMode>
@@ -492,7 +496,7 @@
     </pluginRepository>
   </pluginRepositories>
 
-  <!-- This must be copied to your project, otherwise integral-springbootcamel-parent will not be found.
+  <!-- This must be copied to your project, otherwise kth-parent will not be found.
        The properties cannot be used, they must be hardcoded. -->
   <repositories>
     <repository>
