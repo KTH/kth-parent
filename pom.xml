@@ -6,7 +6,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.11.3-0</version>
+  <version>3.11.3-1</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH projects</name>
@@ -31,10 +31,11 @@
     <azure.version>3.9.0</azure.version>
     <camel-ug.version>3.7.3-12</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
+    <bunyan.version>2.7.0</bunyan.version>
     <lombok.version>1.18.22</lombok.version>
     <checkstyle.version>9.0.1</checkstyle.version>
     <spotbugs.version>4.4.2</spotbugs.version>
-    <ladok-model.version>1.76.1</ladok-model.version>
+    <ladok-model.version>1.77.0</ladok-model.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
     <sonar.host.url>https://integral-sqube.azurewebsites.net</sonar.host.url>
@@ -42,7 +43,7 @@
 
     <!--
       In camel-ladok3-test-utils there is a mismatch between the cxf-dependencies defined in camel, so we use this to import the correct CXF BOM.
-      Must match the version in Camel. Update this when updating camel.version.
+      Must match the version in Camel BOM. Update this when updating camel.version.
     -->
     <cxf.version>3.4.4</cxf.version>
 
@@ -100,17 +101,12 @@
       <dependency>
         <groupId>se.kth.infosys.logback</groupId>
         <artifactId>bunyan-layout</artifactId>
-        <version>2.6.0</version>
+        <version>${bunyan.version}</version>
       </dependency>
       <dependency>
         <groupId>se.kth.infosys.log4j2</groupId>
         <artifactId>bunyan-layout</artifactId>
-        <version>2.5.1</version>
-      </dependency>
-      <dependency>
-        <groupId>se.kth.infosys.log4j</groupId>
-        <artifactId>bunyan-layout</artifactId>
-        <version>2.5.1</version>
+        <version>${bunyan.version}</version>
       </dependency>
       <dependency>
         <groupId>se.kth.infosys.smx</groupId>
@@ -140,11 +136,6 @@
       <dependency>
         <groupId>se.kth.it.ladok</groupId>
         <artifactId>ladok-event-model</artifactId>
-        <version>${ladok-model.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>se.kth.it.ladok</groupId>
-        <artifactId>ladok-legacy-model</artifactId>
         <version>${ladok-model.version}</version>
       </dependency>
     </dependencies>
