@@ -6,7 +6,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.11.3-1</version>
+  <version>3.11.3-2</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH projects</name>
@@ -24,12 +24,14 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <downloadSources>true</downloadSources>
+    <downloadJavadocs>true</downloadJavadocs>
     <java.version>11</java.version>
     <maven.version>(3.6.2,)</maven.version> <!-- Minimum of maven 3.6.2 required for flatten plugin to work correctly -->
     <camel.version>3.11.3</camel.version>
     <spring-boot.version>2.5.5</spring-boot.version> <!-- Must be compatible with Camel version -->
     <azure.version>3.9.0</azure.version>
-    <camel-ug.version>3.7.3-12</camel-ug.version>
+    <camel-ug.version>3.7.3-14</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
     <bunyan.version>2.7.0</bunyan.version>
     <lombok.version>1.18.22</lombok.version>
