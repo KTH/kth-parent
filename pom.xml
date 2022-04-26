@@ -27,7 +27,7 @@
     <downloadSources>true</downloadSources>
     <downloadJavadocs>true</downloadJavadocs>
     <java.version>11</java.version>
-    <maven.version>(3.6.2,)</maven.version> <!-- Minimum of maven 3.6.2 required for flatten plugin to work correctly -->
+    <maven.version>(3.6.2,)</maven.version> <!-- Minimum version of maven 3.6.2 required for flatten plugin to work correctly -->
     <camel.version>3.14.2</camel.version>
     <spring-boot.version>2.6.4</spring-boot.version> <!-- Must be compatible with Camel version -->
     <azure.version>3.9.0</azure.version>
@@ -490,7 +490,7 @@
   </pluginRepositories>
 
   <!-- This must be copied to your project, otherwise kth-parent will not be found.
-       The properties cannot be used, they must be hardcoded. -->
+       The properties cannot be used, they must be hardcoded here. -->
   <repositories>
     <repository>
       <id>${maven.repository.id}</id>
