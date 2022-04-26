@@ -6,7 +6,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.14.2-3</version>
+  <version>3.14.2-4</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH projects</name>
@@ -30,13 +30,13 @@
     <maven.version>(3.6.2,)</maven.version> <!-- Minimum version of maven 3.6.2 required for flatten plugin to work correctly -->
     <camel.version>3.14.2</camel.version>
     <spring-boot.version>2.6.7</spring-boot.version> <!-- Must be compatible with Camel version -->
-    <azure.version>3.9.0</azure.version>
+    <azure.version>4.0.0</azure.version>
     <camel-ug.version>3.7.3-14</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
     <bunyan.version>2.7.0</bunyan.version>
-    <lombok.version>1.18.22</lombok.version>
+    <lombok.version>1.18.24</lombok.version>
     <checkstyle.version>9.0.1</checkstyle.version>
-    <spotbugs.version>4.4.2</spotbugs.version>
+    <spotbugs.version>4.6.0</spotbugs.version>
     <ladok-model.version>1.77.0</ladok-model.version>
     <maven.repository.id>integration</maven.repository.id>
     <maven.repository.url>https://pkgs.dev.azure.com/kth-integration/_packaging/integration/maven/v1</maven.repository.url>
@@ -50,10 +50,10 @@
     <cxf.version>3.4.4</cxf.version>
 
     <!--
-      The UG Camel component needs version 4.x of Okhttp3, Spring Boot defines 3.x as default.
-      When we start using a version of Spring boot with OkHttp 4.x predefined this can be removed.
+      The UG Camel component must use version 4.x of Okhttp3, Spring Boot defines 3.x as default.
+      When we start using a version of Spring boot with OkHttp 4.x predefined, this can be removed.
     -->
-    <okhttp3.version>4.9.1</okhttp3.version>
+    <okhttp3.version>4.9.3</okhttp3.version>
   </properties>
 
   <dependencyManagement>
@@ -170,7 +170,7 @@
     <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs-annotations</artifactId>
-      <version>${spotbugs.version}</version>
+      <version>4.6.0</version>
       <optional>true</optional>
     </dependency>
   </dependencies>
@@ -231,7 +231,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.7</version>
+          <version>0.8.8</version>
           <executions>
             <execution>
               <goals>
@@ -275,7 +275,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
-          <version>2.8.1</version>
+          <version>2.10.0</version>
           <configuration>
             <generateBackupPoms>false</generateBackupPoms>
           </configuration>
@@ -321,14 +321,7 @@
         <plugin>
           <groupId>com.github.spotbugs</groupId>
           <artifactId>spotbugs-maven-plugin</artifactId>
-          <version>4.4.1</version>
-          <dependencies>
-            <dependency>
-              <groupId>com.github.spotbugs</groupId>
-              <artifactId>spotbugs</artifactId>
-              <version>${spotbugs.version}</version>
-            </dependency>
-          </dependencies>
+          <version>${spotbugs.version}</version>
           <executions>
             <execution>
               <phase>prepare-package</phase>
