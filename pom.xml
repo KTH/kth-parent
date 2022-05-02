@@ -6,7 +6,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.14.2-6</version>
+  <version>3.14.2-7</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH projects</name>
@@ -31,7 +31,7 @@
     <camel.version>3.14.2</camel.version>
     <spring-boot.version>2.6.7</spring-boot.version> <!-- Must be compatible with Camel version -->
     <azure.version>4.0.0</azure.version>
-    <camel-ug.version>3.7.4-0</camel-ug.version>
+    <camel-ug.version>3.7.4-1</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
     <bunyan.version>2.7.0</bunyan.version>
     <lombok.version>1.18.24</lombok.version>
