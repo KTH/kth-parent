@@ -1,4 +1,4 @@
-# integral-springbootcamel-parent
+# kta-parent
 Parent POM for Spring Boot Camel projects
 
 Needs at least *java 11* to run correctly.
@@ -11,7 +11,7 @@ To override defaults, set the following properties:
 | Property               | Value                                            | Default value |
 |------------------------|--------------------------------------------------|---------------|
 | maven.compiler.release | Which version of java class format to compile to | 11            |
-| camel.version          | Set Camel version.                               | 3.2.0          |
-| maven.version.range    | Set a maven version range, ie *3.6,* means at least maven 3.6. For more info, see http://maven.apache.org/enforcer/enforcer-rules/versionRanges.html. | 3.6, |
+| camel.version          | Set Camel version.                               | 3.18.0        |
+| maven.version.range    | Set a maven version range, ie *3.6,* means at least maven 3.6. For more info, see http://maven.apache.org/enforcer/enforcer-rules/versionRanges.html. | 3.6,          |
 
 For an example on how to use this parent pom, see https://github.com/KTH/integral-springbootcamel-template

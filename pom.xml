@@ -6,7 +6,7 @@
 
   <groupId>se.kth</groupId>
   <artifactId>kth-parent</artifactId>
-  <version>3.14.3-1</version>
+  <version>3.18.0-1</version>
   <packaging>pom</packaging>
 
   <name>Maven parent for KTH projects</name>
@@ -28,8 +28,8 @@
     <downloadJavadocs>true</downloadJavadocs>
     <java.version>11</java.version>
     <maven.version>(3.6.2,)</maven.version> <!-- Minimum version of maven 3.6.2 required for flatten plugin to work correctly -->
-    <camel.version>3.14.3</camel.version>
-    <spring-boot.version>2.6.7</spring-boot.version> <!-- Must be compatible with Camel version -->
+    <camel.version>3.18.0</camel.version>
+    <spring-boot.version>2.7.2</spring-boot.version> <!-- Must be compatible with Camel version -->
     <azure.version>4.0.0</azure.version>
     <camel-ug.version>3.7.4-1</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
@@ -47,7 +47,7 @@
       In camel-ladok3-test-utils there is a mismatch between the cxf-dependencies defined in camel, so we use this to import the correct CXF BOM.
       Must match the version in Camel BOM. Update this when updating camel.version.
     -->
-    <cxf.version>3.4.4</cxf.version>
+    <cxf.version>3.5.3</cxf.version>
 
     <!--
       The UG Camel component must use version 4.x of Okhttp3, Spring Boot defines 3.x as default.
