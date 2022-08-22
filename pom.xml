@@ -31,7 +31,6 @@
     <camel.version>3.18.1</camel.version>
     <spring-boot.version>2.7.2</spring-boot.version> <!-- Must be compatible with Camel version -->
     <azure.version>4.0.0</azure.version>
-    <camel-ug.version>3.7.4-1</camel-ug.version>
     <camel-ladok3.version>3.56.2</camel-ladok3.version>
     <bunyan.version>2.7.0</bunyan.version>
     <lombok.version>1.18.24</lombok.version>
@@ -109,16 +108,6 @@
         <groupId>se.kth.infosys.log4j2</groupId>
         <artifactId>bunyan-layout</artifactId>
         <version>${bunyan.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>se.kth.infosys.smx</groupId>
-        <artifactId>camel-ug-component</artifactId>
-        <version>${camel-ug.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>se.kth.infosys.smx</groupId>
-        <artifactId>camel-ug-test-tools</artifactId>
-        <version>${camel-ug.version}</version>
       </dependency>
       <dependency>
         <groupId>se.kth.infosys.smx.ladok3</groupId>
