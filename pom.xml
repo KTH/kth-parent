@@ -111,6 +111,16 @@
         <version>${bunyan.version}</version>
       </dependency>
       <dependency>
+        <groupId>se.kth.infosys.smx</groupId>
+        <artifactId>camel-ug-component</artifactId>
+        <version>${camel-ug.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>se.kth.infosys.smx</groupId>
+        <artifactId>camel-ug-test-tools</artifactId>
+        <version>${camel-ug.version}</version>
+      </dependency>
+      <dependency>
         <groupId>se.kth.infosys.smx.ladok3</groupId>
         <artifactId>camel-ladok3-component</artifactId>
         <version>${camel-ladok3.version}</version>
